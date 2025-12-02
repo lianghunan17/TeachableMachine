@@ -50,10 +50,21 @@
     async function predict() {
         // predict can take in an image, video or canvas html element
         const prediction = await model.predict(webcam.canvas);
+        let max = -1;
+        let maxTag = "";
+    // 一番確率が高いクラスを探す
         for (let i = 0; i < maxPredictions; i++) {
-            const classPrediction =
-                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-            labelContainer.childNodes[i].innerHTML = classPrediction;
-        }
+            if (max < prediction[i].probability) {
+                     max = prediction[i].probability;
+                    maxTag = prediction[i].className;
+                 }
+         }
+            // 90%以上自信があるときだけラベルを出す
+         if (maxTag && max >= 0.9) {
+              labelContainer.innerText = `これは「${maxTag}」です（確率: ${(max * 100).toFixed(1)}%）`;
+         } else {
+        // しきい値未満のとき
+              labelContainer.innerText = "まだよく分かりません……";
+         }
     }
 </script>
