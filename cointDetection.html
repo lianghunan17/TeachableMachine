@@ -9,7 +9,7 @@
     // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
     // the link to your model provided by Teachable Machine export panel
-    const URL = "https://teachablemachine.withgoogle.com/models/OpycYWHr3/";
+    const URL = "./my_model/";
 
     let model, webcam, labelContainer, maxPredictions;
 
@@ -50,10 +50,21 @@
     async function predict() {
         // predict can take in an image, video or canvas html element
         const prediction = await model.predict(webcam.canvas);
+        let max  =-1;
+        let maxTag ='';
+
         for (let i = 0; i < maxPredictions; i++) {
-            const classPrediction =
-                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-            labelContainer.childNodes[i].innerHTML = classPrediction;
+            if (max < prediction[i].probability){
+                max = prediction[i].probability;
+                maxTag = prediction[i].className;
+            }
+
+        }
+        if(maxTag && max > = 0.9){
+            labelContainer.innertext ='';
+            
+        }else{
+            labelContainer.innertext ='これは${maxTag}です';
         }
     }
 </script>
