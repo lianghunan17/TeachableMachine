@@ -1,4 +1,4 @@
-<div>Teachable Machine Image Model</div>
+se<div>Teachable Machine Image Model</div>
 <button type="button" onclick="init()">Start</button>
 <div id="webcam-container"></div>
 <div id="label-container"></div>
@@ -60,9 +60,11 @@
             }
 
         }
-        if(maxTag&max>=0.9){
+        if(maxTag && max > = 0.9){
             labelContainer.innertext ='';
             
+        }else{
+            labelContainer.innertext ='これは${maxTag}です';
         }
     }
 </script>
